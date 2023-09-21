@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Register - Greens
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        color: #666;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .required {
+        color: red;
+    }
+
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .register-container {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 20px;
+        width: 500px;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="register-container">
+    <h1>Register - Greens</h1>
+    <form method="post">
+        <label for="name">Name<span class="required">*</span>:</label>
+        <input type="text" name="name" id="name" required>
+        <br>
+        <label for="username">Username<span class="required">*</span>:</label>
+        <input type="text" name="username" id="username" required>
+        <br>
+        <label for="password">Password<span class="required">*</span>:</label>
+        <input type="password" name="password" id="password" required>
+        <br>
+        <input type="submit" value="Register">
+    </form>
+</div>
+{% endblock %}
+
+
+
+
+
+
