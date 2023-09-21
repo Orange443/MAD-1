@@ -10,7 +10,15 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
     passhash = db.Column(db.String(512), nullable=False)
-    namee = db.Column(db.String(64), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
+
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+
+    @password.setter
+    def password(self, password):
+        self.passhash = generate_password_hash(password) 
 
     def check_password(self, password):
         return check_password_hash(self.passhash, password)

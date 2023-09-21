@@ -15,6 +15,9 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
     user = User.query.filter_by(username=username).first()
+    if username == '' or password == '':
+        flash('Username or password cannot be empty.')
+        return redirect(url_for('login'))
     if not user:
         flash('Invalid user.')
         return redirect(url_for('login'))
@@ -35,4 +38,11 @@ def register_post():
     if username == '' or password == '':
         flash('Username or password cannot be empty.')
         return redirect(url_for('register'))
-    # Your further registration logic can go here
+    if User.query.filter_by(username=username).first():
+       flash('User with this username already exists.')
+       return redirect(url_for('register'))    
+    user = User(username=username, password=password, name=name)
+    db.session.add(user)
+    db.session.commit()
+    flash('User created')
+    return redirect(url_for('login'))
