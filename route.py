@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-
 from Models import db, User, Product, Category, Cart, Order
-
 from app import app
 
 @app.route('/')
@@ -9,6 +7,10 @@ def index():
     return render_template('index.html')
     
 @app.route('/login')
+def login_post():
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -21,10 +23,16 @@ def login():
         return redirect(url_for('login'))
     return redirect(url_for('index'))
 
-@app.route('/login', methods=['POST'])
-def login_post():
-    return "hello"    
-
 @app.route('/register')
 def register():
     return render_template('register.html')
+
+@app.route('/register', methods=['POST'])
+def register_post():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    name = request.form.get('name')
+    if username == '' or password == '':
+        flash('Username or password cannot be empty.')
+        return redirect(url_for('register'))
+    # Your further registration logic can go here
