@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-Login - Greens 
+    Add Category - Greens
 {% endblock %}
 
 {% block style %}
@@ -16,7 +16,7 @@ Login - Greens
         height: 100vh;
     }
 
-    .login-container {
+    .form-container {
         background-color: #fff;
         border-radius: 8px;
         padding: 20px;
@@ -38,8 +38,7 @@ Login - Greens
         color: #666;
     }
 
-    input[type="text"],
-    input[type="password"] {
+    input[type="text"] {
         width: 100%;
         padding: 10px;
         margin-top: 5px;
@@ -66,17 +65,14 @@ Login - Greens
 {% endblock %}
 
 {% block content %}
-<div class="login-container">
-    <h1>Login to Greens </h1>
+<div class="form-container">
+    <h1>Add Category</h1>
     <hr>
-    <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <br>
-        <input type="submit" value="Login">
+    <form method="post" class="form">
+        <label for="name" class="form-lable">Name:
+            <input type="text" name="name" id="name" class="form-control" required />
+        </label>
+        <input type="submit" value="Save" class="btn btn-success">
     </form>
 </div>
 {% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Profile - Greens
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .profile-container {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 20px;
+        width: 500px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    h2.text-muted {
+        text-align: center;
+        color: #666;
+    }
+
+    h3 {
+        text-align: center;
+        color: #333;
+        margin-top: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        color: #666;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .logout-btn {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .logout-btn a {
+        background-color: #d9534f;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .logout-btn a:hover {
+        background-color: #c9302c;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>Profile
+        <small class="text-muted">(@{{user.name}})</small>
+    </h1>
+    <hr>
+    <h3>Edit Profile</h3>
+    <form method="post">
+        <label for="username">New Username:
+            <input type="text" name="username" id="username" class="form-control" required value="{{user.username}}">
+        </label>
+        <label for="name">New Name:
+            <input type="text" name="name" id="name" class="form-control" required value="{{user.name}}">
+        </label>
+        <label for="cpassword">Current Password:
+            <input type="password" name="cpassword" id="cpassword" class="form-control" required>
+        </label>
+        <label for="password">New Password:
+            <input type="password" name="password" id="password" class="form-control" required>
+        </label>
+        <input type="submit" value="Save Changes" class="btn btn-success"/>
+    </form>
+    <div class="logout-btn">
+        <a href="{{url_for('logout')}}">Logout</a>
+    </div>
+</div>
+{% endblock %}

@@ -8,22 +8,21 @@ db = SQLAlchemy(app)
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(32), unique=True, nullable=False)
-    passhash = db.Column(db.String(512), nullable=False)
     name = db.Column(db.String(64), nullable=False)
+    username = db.Column(db.String(32), unique=True, nullable=False)
+    passhash = db.Column(db.String(512), nullable=False) 
+    is_admin = db.Column(db.Boolean, nullable=False, default=False)
+      
 
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
-
     @password.setter
     def password(self, password):
-        self.passhash = generate_password_hash(password) 
+        self.passhash = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.passhash, password)
-        
-
+        return check_password_hash(self.passhash, password)    
 
 class Product (db.Model):
     __tablename__ = 'product'
@@ -58,3 +57,9 @@ class Order (db.Model):
 
 with app.app_context():
     db.create_all()
+    # create admin if admin does not exist
+    admin = User.query.filter_by(username='admin').first()
+    if not admin:
+        admin = User(username='admin', password='admin', is_admin=True, name='admin')
+        db.session.add(admin)
+        db.session.commit()

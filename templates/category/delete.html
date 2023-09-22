@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-Login - Greens 
+    Delete Category - Greens
 {% endblock %}
 
 {% block style %}
@@ -16,12 +16,13 @@ Login - Greens
         height: 100vh;
     }
 
-    .login-container {
+    .delete-container {
         background-color: #fff;
         border-radius: 8px;
         padding: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin: auto;
+        width: 500px;
+        text-align: center;
         margin-top: 20px;
         width: 500px;
         margin-bottom: 20px;
@@ -32,25 +33,19 @@ Login - Greens
         color: #333;
     }
 
-    label {
-        display: block;
-        margin-top: 10px;
-        color: #666;
+    h5 {
+        text-align: center;
+        color: #333;
+        margin-top: 20px;
     }
 
-    input[type="text"],
-    input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
+    .form {
+        text-align: center;
+        margin-top: 20px;
     }
 
     input[type="submit"] {
-        background-color: #4caf50;
+        background-color: #d9534f;
         color: white;
         padding: 10px 20px;
         border: none;
@@ -60,23 +55,20 @@ Login - Greens
     }
 
     input[type="submit"]:hover {
-        background-color: #45a049;
+        background-color: #c9302c;
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="login-container">
-    <h1>Login to Greens </h1>
+<div class="delete-container">
+    <h1>Delete Category</h1>
     <hr>
-    <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <br>
-        <input type="submit" value="Login">
+    <h5 class="text-center text-danger">Are you sure you want to delete
+        <strong> {{category.name}}</strong>
+        ?</h5>
+    <form method="post" class="form">
+        <input type="submit" value="Delete" class="btn btn-danger">
     </form>
 </div>
 {% endblock %}
