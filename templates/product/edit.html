@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Edit Product - Greens
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .form-container {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 20px;
+        width: 500px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        color: #666;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Edit Product</h1>
+    <hr>
+    <form method="post" class="form" >
+        <label for="name" class="form-label">Name:
+            <input type="text" name="name" id="name" class="form-control" required value="{{product.name}}"/>
+        </label>
+        <label for="category" class="form-label">Category:
+            <select name="category" id="category" class="form-select form-select-lg mb-3" required>
+                {% for category in categories %}
+                    {% if category.id == product.category_id %}
+                        <option value="{{category.id}}" selected>{{category.name}}</option>                        
+                    {% else %}
+                    <option value="{{category.id}}">{{category.name}}</option>   
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </label>
+        <label for="quantity" class="form-label">Quantity:
+            <input type="number" name="quantity" id="quantity" class="form-control" required value="{{product.quantity}}"/>
+        </label>
+        <label for="price" class="form-label">Price:
+            <input type="number" name="price" id="price" class="form-control" required value="{{product.price}}" />
+        </label>
+        <label for="manufacturing_date" class="form-label">Manufacturing Date:
+            <input type="date" name="manufacturing_date" max="{{nowstring}}" id="manufacturing_date" class="form-control" required value="{{manufacture_date}}" />
+        </label>
+        <input type="submit" value="Save" class="btn btn-success">
+    </form>
+</div>
+{% endblock %}

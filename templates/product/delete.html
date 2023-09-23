@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Delete Product - Greens
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .delete-container {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 500px;
+        text-align: center;
+        margin-top: 20px;
+        width: 500px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    h5 {
+        text-align: center;
+        color: #333;
+        margin-top: 20px;
+    }
+
+    .form {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    input[type="submit"] {
+        background-color: #d9534f;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #c9302c;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <h1>Delete Product</h1>
+    <hr>
+    <h5 class="text-center text-danger">Are you sure you want to delete
+        <strong> {{product.name}}</strong>
+        ?</h5>
+    <form method="post" class="form">
+        <input type="submit" value="Delete" class="btn btn-danger">
+    </form>
+</div>
+{% endblock %}

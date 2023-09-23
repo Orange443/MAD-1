@@ -5,5 +5,135 @@ Home - Greens
 {% endblock %}
 
 {% block content %}
-Hello {{ user.name }}!
+{% include 'searchbar.html' with context  %}
+
+<div class="categories-list">
+    {% for category in categories %}
+        <div class="category">
+            <h3>{{category.name}}</h3>
+            <div class="product-list">
+                {% for product in category.products %}
+                {% if (price and product.price <= price )or (name and name in product.name)or (not price and not name) %}
+                    
+                <div class="product">
+                    <div class="product-info">
+                        <h4>{{product.name}}</h4>
+                        <p>&#8377; {{product.price}}</p>
+                        <p>Available: {{product.quantity}}</p>
+                    </div>
+                    <div class="add-to-cart">
+                        <form action="{{ url_for('add_to_cart', product_id=product.id)}}" method="POST" class="product-quantity">
+                            <label for="quantity">Quantity:</label>
+                            <input class="form-control" type="number" name="quantity" id="quantity" value="1" min="1" max="{{product.quantity}}" required>
+                            <button type="submit" class="submit-button">
+                                <i class="fas fa-cart-plus fa-xs"></i>
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </a>
+        </div>
+    {% endfor %}
+</div>
+
+    
+
+{% endblock %}
+
+{% block style %}
+<style>
+    
+    body {
+        background-color: #f4f4f4; 
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .categories-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+
+    .category {
+        background-color: #fff; 
+        border: 1px solid #ddd; 
+        border-radius: 5px;
+        padding: 20px;
+        margin: 10px;
+        width: calc(33.33% - 20px); 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    }
+
+    .category h3 {
+        font-size: 1.5rem;
+        color: #333; 
+    }
+
+    .product {
+        border-top: 1px solid #ddd; 
+        margin-top: 10px;
+        padding-top: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .product-info h4 {
+        font-size: 1.2rem;
+        color: #333; 
+    }
+
+    .product-info p {
+        color: #666; 
+    }
+
+    .add-to-cart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-quantity {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        gap: 0.4rem;
+    }
+
+    label {
+        margin-right: 5px;
+        color: #666; 
+    }
+
+    input[type="number"] {
+        width: 50px;
+        padding: 5px;
+        border: 1px solid #ddd; 
+        border-radius: 3px;
+    }
+
+    button {
+        background-color: #ff5733; 
+        color: #fff; 
+        border: none;
+        padding: 8px 16px;
+        border-radius: 9px;
+        cursor: pointer;
+        font-size: 14px; 
+        align-items: center;
+    }
+
+    button:hover {
+        background-color: #ff4d26; 
+    }
+</style>
 {% endblock %}
