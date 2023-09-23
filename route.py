@@ -1,8 +1,7 @@
 from functools import wraps
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session
 from Models import db, User, Product, Category, Cart, Order, Transaction
 from app import app
-import time
 import datetime 
 import re
 

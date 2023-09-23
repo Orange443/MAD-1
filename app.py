@@ -1,11 +1,9 @@
-from flask import Flask, request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+from config import configure_app
 
 app = Flask(__name__)
-
-import config
+configure_app(app)
 
 import Models
-
 import route
 
