@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from Models import db, User, Product, Category, Cart, Order
+from Models import db, User, Product, Category, Cart, Order, Transaction
 from app import app
 import time
 import datetime 
@@ -433,10 +433,12 @@ def place_order():
         if item.quantity > item.product.quantity:
             flash('Quantity exceeds the available quantity.')
             return redirect(url_for('cart'))
+    transaction = Transaction(user_id=session['user_id'])
     for item in items:
         item.product.quantity -= item.quantity
         order = Order(user_id=session['user_id'], product_id=item.product_id, quantity=item.quantity, price=item.product.price)
         db.session.add(order)
+        transaction.orders.append(order)
         db.session.delete(item)
         db.session.commit()
     flash('Order placed successfully')
@@ -445,4 +447,6 @@ def place_order():
 @app.route('/orders')
 @auth_required  
 def orders():
-    return"my orders"
+    user = User.query.get(session['user_id'])
+    transaction = Transaction.query.filter_by(user_id=session['user_id']).all()
+    return render_template('orders.html', user=user, transaction=transaction)

@@ -55,6 +55,8 @@ class Transaction (db.Model):
     id = db.Column (db.Integer, primary_key=True)
     datetime = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+
+    orders = db.relationship("Order", backref='transaction', lazy=True)
     
 class Order (db.Model):
     id = db.Column (db.Integer, primary_key=True)
