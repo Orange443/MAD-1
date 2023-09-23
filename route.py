@@ -199,14 +199,6 @@ def add_product_post():
         flash('Manufacturing date cannot be empty.')
         return redirect(url_for('add_product'))
 
-    '''if man_date == '':
-        flash('Manufacture date cannot be empty.')
-        return redirect(url_for('add_product'))
-    try:
-        man_date = datetime.datetime.strptime(str(man_date), '%Y-%m-%d')
-    except ValueError:
-        flash('Invalid date format')
-        return redirect(url_for('add_product'))'''
     
     product= Product(name=name, price=price, quantity=quantity, category=category, man_date=man_date)
     db.session.add(product)
@@ -276,14 +268,7 @@ def edit_product_post(id):
         flash('Manufacturing date cannot be empty.')
         return redirect(url_for('add_product'))
 
-    '''if man_date == '':
-        flash('Manufacture date cannot be empty.')
-        return redirect(url_for('add_product'))
-    try:
-        man_date = datetime.datetime.strptime(str(man_date), '%Y-%m-%d')
-    except ValueError:
-        flash('Invalid date format')
-        return redirect(url_for('add_product'))'''
+    
     
     product= Product.query.get(id)
     product.name = name
@@ -440,9 +425,24 @@ def delete_from_cart(product_id):
 @app.route('/cart/place_order', methods=['POST'])
 @auth_required
 def place_order():
-    return" order placed successfully"
+    items = Cart.query.filter_by(user_id=session['user_id']).all()
+    if not items:
+        flash('Cart is empty.')
+        return redirect(url_for('cart'))
+    for item in items:
+        if item.quantity > item.product.quantity:
+            flash('Quantity exceeds the available quantity.')
+            return redirect(url_for('cart'))
+    for item in items:
+        item.product.quantity -= item.quantity
+        order = Order(user_id=session['user_id'], product_id=item.product_id, quantity=item.quantity, price=item.product.price)
+        db.session.add(order)
+        db.session.delete(item)
+        db.session.commit()
+    flash('Order placed successfully')
+    return redirect(url_for('orders'))
 
 @app.route('/orders')
 @auth_required  
 def orders():
-    return""
+    return"my orders"

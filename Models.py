@@ -2,6 +2,7 @@
 ##models
 from flask_sqlalchemy import SQLAlchemy
 from app import app 
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 db = SQLAlchemy(app)
 
@@ -50,13 +51,17 @@ class Cart(db.Model):
     product_id = db.Column (db.Integer, db.ForeignKey('product.id'), nullable = False)
     quantity = db.Column(db.Integer, nullable = False)
 
+class Transaction (db.Model):
+    id = db.Column (db.Integer, primary_key=True)
+    datetime = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    
 class Order (db.Model):
     id = db.Column (db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.id'), nullable = False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable = False)
     quantity = db.Column(db.Integer, nullable = False) 
     price = db.Column (db.Float, nullable = False)
-    datetime = db.Column(db.DateTime, nullable = False)
 
 with app.app_context():
     db.create_all()

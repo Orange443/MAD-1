@@ -13,7 +13,7 @@ Home - Greens
             <h3>{{category.name}}</h3>
             <div class="product-list">
                 {% for product in category.products %}
-                {% if (price and product.price <= price )or (name and name in product.name)or (not price and not name) %}
+                {% if (price and product.price <= price )or (name and name in product.name )or (not price and not name) %}
                     
                 <div class="product">
                     <div class="product-info">
