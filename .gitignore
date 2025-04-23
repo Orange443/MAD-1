@@ -1,2 +1,15 @@
 venv/
 .env
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Instance Folder (if it contains secrets or local DB)
+instance/
+
+# Environment variables
+.env
+
+# OS specific
+.DS_Store
